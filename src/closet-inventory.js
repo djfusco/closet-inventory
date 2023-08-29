@@ -4,7 +4,7 @@ import "./search-widget.js";
 
 export class ClosetInventory extends LitElement{
   static get tag(){
-    return 'item-card';
+    return 'closet-inventory';
   }
   static get properties(){
     return{
@@ -45,20 +45,27 @@ static get styles(){
       display: block;
     }
     .wrapper{
-      border: 2px solid black; 
       display flex; 
+      flex-directional: column; 
+
     }
     .item{
-      display: inline-flex; 
+      margin: 5px;
+      padding: 10px;
     }
+    .searchbox{ 
+      padding-left: 300px; 
+      padding-top: 100px;
+    }
+
   `;
 }
 
 render(){
   return html`
-   <div class="searchbox">
-      <search-widget @value-changed="${this._handleSearchEvent}"></search-widget>
-   </div>
+  <div class= "searchbox">
+  <search-widget @value-changed="${this._handleSearchEvent}"></search-widget>
+  </div> 
    <div class= "wrapper">
   ${this.schoolBadges.map(item => html`
   <div class="item">
@@ -68,7 +75,5 @@ render(){
   </div>
   `
 }
-
-
-
 }
+customElements.define(ClosetInventory.tag, ClosetInventory); 

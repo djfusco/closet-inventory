@@ -11,6 +11,7 @@ export class SearchWidget extends LitElement {
       return css`
       host:{
         display: block;
+        align-items: center;
       }
       input{
         border:none;
