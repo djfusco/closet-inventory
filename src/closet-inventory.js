@@ -30,20 +30,6 @@ class ClosetInventory extends LitElement {
     this.updateIventory();
   }
 
-  updateIventory(){
-    const address = new URL('../api/inventory', import.meta.url).href;
-    const data = fetch(address).then((response) => {
-      if(response.ok){
-        return response.json()
-      }
-      return [];
-    })
-    .then((data) => {
-      this.items = data;
-    });
-  }
-
-
 
   render() {
     return html`
