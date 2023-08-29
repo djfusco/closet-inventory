@@ -40,14 +40,13 @@ async _handleSearchEvent(e) {
 }
 
 static get styles(){
-  return css `
-    :host{s
+  return css`
+    :host{
       display: block;
     }
     .wrapper{
-      display flex; 
-      flex-directional: column; 
-
+      display: flex;
+      flex-direction: column; 
     }
     .item{
       margin: 5px;
@@ -69,7 +68,7 @@ render(){
    <div class= "wrapper">
   ${this.schoolBadges.map(item => html`
   <div class="item">
-  <my-closet header="${item.header}" subheading="${item.subheading}" content="${item.content}" image="${item.image}"></my-closet>
+  <item-card header="${item.header}" subheading="${item.subheading}" content="${item.content}" image="${item.image}"></item-card>
   </div>
   `)}
   </div>
