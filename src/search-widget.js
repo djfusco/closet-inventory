@@ -9,7 +9,7 @@ export class SearchWidget extends LitElement {
   
     static get styles() {
       return css`
-      host:{
+      :host{
         display: block;
         align-items: center;
       }
