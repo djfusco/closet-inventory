@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@lrnwebcomponents/accent-card": "^7.0.16",
+    "google-auth-library": "^9.0.0",
+    "googleapis": "^126.0.1",
     "lit": "^2.0.2"
   },
   "devDependencies": {
