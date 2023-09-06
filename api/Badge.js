@@ -2,13 +2,13 @@
  * Install GoopleAPI NPM library: npm install googleAPIS 
  *  Create auth variable 
  */
-const {google} = require('googleapis'); 
-const auth = new google.auth.GoogleAuth; 
+import { google } from 'googleapis';
+const auth = new google.auth.GoogleAuth();
 const secretKey = {
   "type": process.env.type,
   "project_id": process.env.project_id,
   "private_key_id": process.env.private_key_id,
-  "private_key": process.env.private_key,
+  "private_key": process.env.private_key.split(String.raw`\n`).join('\n'),
   "client_email": process.env.client_email,
   "client_id": process.env.client_id,
   "auth_uri": process.env.auth_uri,
@@ -19,7 +19,7 @@ const secretKey = {
 }
 const jwtClient = new google.auth.JWT(
   secretKey.client_email, null,
-  secretKey.private_key,  ['https://www.googleapis.com/auth/spreadsheets']); 
+  secretKey.private_key,  ['https://www.googleapis.com/auth/spreadsheets']);
 
 //authenticate request 
 jwtClient.authorize(function (err, tokens) {
@@ -27,75 +27,50 @@ jwtClient.authorize(function (err, tokens) {
     console.log(err);
     return;
   } else {
-    console.log("Successfully connected!");
+    //console.log("Successfully connected!");
   }
  });
 
- const sheets = google.sheets('v4');
- let spreadsheetId = '1AZXdinMyIkD2WWoeQPm62t0BGc2jjkx2IeEAM2DtFMc';
- let sheetRange = 'Sheet1!2:2';
- 
- function getValues(spreadsheetId, sheetRange){
-  sheets.spreadsheets.values.get({
-    spreadsheetId: spreadsheetId,
-    sheetrange: sheetRange ,
-  }).then((response) => {
-    const result = response.result; 
-  }); 
- }
-
-
-
-
+const sheets = google.sheets('v4');
 
 export default async function handler(req, res) {
-    const search = req.query.search || '';
-    
-    var badges = [{
-    "header": result,
-    "subheading": "A card with optional accent stylings.",
-    "content": "This card is highly customizable to contain any content you'd like",
-    "image": "https://cdn.shopify.com/s/files/1/0259/5448/4284/products/SKIMS-LOUNGEWEAR-AP-TNK-0282-ONX-FL_1456x_jpeg.jpg?v=1675404669&width=1200"  
-    },
-    {
-      "header": "T-Shirt",
-      "subheading": "A card with optional accent stylings.",
-      "content": "This card is highly customizable to contain any content you'd like",
-      "image": "https://cdn.shopify.com/s/files/1/0259/5448/4284/products/SKIMS-LOUNGEWEAR-AP-TNK-0282-ONX-FL_1456x_jpeg.jpg?v=1675404669&width=1200"  
-    },
-    {
-      "header": "T-Shirt",
-      "subheading": "A card with optional accent stylings.",
-      "content": "This card is highly customizable to contain any content you'd like",
-      "image": "https://cdn.shopify.com/s/files/1/0259/5448/4284/products/SKIMS-LOUNGEWEAR-AP-TNK-0282-ONX-FL_1456x_jpeg.jpg?v=1675404669&width=1200"  
-    },
-    {
-      "header": "T-Shirt",
-      "subheading": "A card with optional accent stylings.",
-      "content": "This card is highly customizable to contain any content you'd like",
-      "image": "https://cdn.shopify.com/s/files/1/0259/5448/4284/products/SKIMS-LOUNGEWEAR-AP-TNK-0282-ONX-FL_1456x_jpeg.jpg?v=1675404669&width=1200"  
+  const search = req.query.search || '';
+  // sheet ID we are pulling from
+  let spreadsheetId = '1AZXdinMyIkD2WWoeQPm62t0BGc2jjkx2IeEAM2DtFMc';
+  // range
+  let sheetRange = 'Sheet1!2:2';
+  let results = [];
+  sheets.spreadsheets.values.get({
+      auth: jwtClient,
+      spreadsheetId: spreadsheetId,
+      range: sheetRange
+  }, function (err, response) {
+    if (err) {
+        console.log('The API returned an error: ' + err);
     }
-];
-
-    if(search === ''){
-      badges.map((schoolBadges) => {
-        return schoolBadges;
+    else {
+      for (let row of response.data.values) {
+        results.push({
+          "header": row[0],
+          "subheading": row[1],
+          "content": row[2],
+          "image": row[3]
+        });
+      }
+    }
+    if(search !== '') {      
+      results.map((row) => {
+        row.index = row.header.toLowerCase() + " " + row.subheading.toLowerCase() + " " + row.content.toLowerCase();
       });
-      
-    }else{ 
-
-    badges.map((schoolBadges) => {
-        schoolBadges.index = schoolBadges.header.toLowerCase() + " " + schoolBadges.subheading.toLowerCase() + " " + schoolBadges.content.toLowerCase();
-      });
-      badges = badges.filter((schoolBadges) => {
-        return schoolBadges.index.indexOf(search.toLowerCase()) > -1;
+      results = results.filter((row) => {
+        return row.index.indexOf(search.toLowerCase()) > -1;
       });
     }
-    console.log(badges);
     res.setHeader('Cache-Control', 'max-age=0, s-maxage=1800');
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
     res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
-    res.json(badges);
-  }
+    res.json(results);
+  });
+}
