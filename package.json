@@ -19,9 +19,10 @@
     "@lrnwebcomponents/accent-card": "^7.0.16",
     "google-auth-library": "^9.0.0",
     "googleapis": "^126.0.1",
-    "lit": "^2.0.2"
+    "lit": "^2.8.0"
   },
   "devDependencies": {
+    "esbuild": "0.19.2",
     "@babel/preset-env": "^7.16.4",
     "@custom-elements-manifest/analyzer": "^0.4.17",
     "@open-wc/building-rollup": "^2.0.2",
