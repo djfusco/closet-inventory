@@ -1058,6 +1058,13 @@
   dependencies:
     "@types/chai" "^4.2.12"
 
+"@google/model-viewer@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/@google/model-viewer/-/model-viewer-3.2.1.tgz"
+  integrity sha512-qD6xsRhiG+0qsvUY2gqnM+9hQPQWDs+5RJzXrdrHSGAkFkUiTTif0raButQTRm2c1CDXWWE6AuCHXnVW9yN9Ug==
+  dependencies:
+    lit "^2.7.2"
+
 "@jridgewell/gen-mapping@^0.3.0", "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.3"
   resolved "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.3.tgz"
@@ -4304,7 +4311,7 @@ lit-html@^2.0.0, lit-html@^2.8.0:
   dependencies:
     "@types/trusted-types" "^2.0.2"
 
-lit@^2.0.0, lit@^2.0.2, lit@^2.2.5, lit@^2.7.6, lit@^2.8.0:
+lit@^2.0.0, lit@^2.0.2, lit@^2.2.5, lit@^2.7.2, lit@^2.7.6, lit@^2.8.0:
   version "2.8.0"
   resolved "https://registry.npmjs.org/lit/-/lit-2.8.0.tgz"
   integrity sha512-4Sc3OFX9QHOJaHbmTMk28SYgVxLN3ePDjg7hofEft2zWlehFL3LiAuapWc4U/kYwMYJSh2hTCPZ6/LIC7ii0MA==
@@ -5837,6 +5844,11 @@ terser@^5.15.1:
     acorn "^8.8.2"
     commander "^2.20.0"
     source-map-support "~0.5.20"
+
+three@^0.154.0:
+  version "0.154.0"
+  resolved "https://registry.npmjs.org/three/-/three-0.154.0.tgz"
+  integrity sha512-Uzz8C/5GesJzv8i+Y2prEMYUwodwZySPcNhuJUdsVMH2Yn4Nm8qlbQe6qRN5fOhg55XB0WiLfTPBxVHxpE60ug==
 
 through@^2.3.8:
   version "2.3.8"
