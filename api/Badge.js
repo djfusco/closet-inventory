@@ -51,17 +51,14 @@ export default async function handler(req, res) {
     else {
       for (let row of response.data.values) {
         results.push({
-          "header": row[0],
-          "subheading": row[1],
-          "content": row[2],
-          "image": row[3]
+          "text": row[0],
+          "modelsrc": row[1],
+          "image": row[2],
+          "poster": row[3]
         });
       }
     }
-    if(search !== '') {      
-      results.map((row) => {
-        row.index = row.header.toLowerCase() + " " + row.subheading.toLowerCase() + " " + row.content.toLowerCase();
-      });
+    if(search == '') {  
       results = results.filter((row) => {
         return row.index.indexOf(search.toLowerCase()) > -1;
       });
