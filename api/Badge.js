@@ -38,7 +38,7 @@ export default async function handler(req, res) {
   // sheet ID we are pulling from
   let spreadsheetId = '1AZXdinMyIkD2WWoeQPm62t0BGc2jjkx2IeEAM2DtFMc';
   // range
-  let sheetRange = 'Sheet1!2:2';
+  let sheetRange = 'Sheet1!2:10';
   let results = [];
   sheets.spreadsheets.values.get({
       auth: jwtClient,
@@ -58,7 +58,7 @@ export default async function handler(req, res) {
         });
       }
     }
-    if(search == '') {  
+    if(search != '') {  
       results = results.filter((row) => {
         return row.index.indexOf(search.toLowerCase()) > -1;
       });
