@@ -27,7 +27,7 @@ jwtClient.authorize(function (err, tokens) {
     console.log(err);
     return;
   } else {
-    //console.log("Successfully connected!");
+    console.log("Successfully connected!");
   }
  });
 
@@ -36,7 +36,7 @@ const sheets = google.sheets('v4');
 export default async function handler(req, res) {
   const search = req.query.search || '';
   // sheet ID we are pulling from
-  let spreadsheetId = '1AZXdinMyIkD2WWoeQPm62t0BGc2jjkx2IeEAM2DtFMc';
+  let spreadsheetId = '1xjwk2jZZ02eISlckO7NDvNSf4LXPOgPI80OsqP30qtY';
   // range
   let sheetRange = 'Sheet1!2:10';
   let results = [];
