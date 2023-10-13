@@ -20,7 +20,8 @@
     "@lrnwebcomponents/accent-card": "^7.0.16",
     "google-auth-library": "^9.0.0",
     "googleapis": "^126.0.1",
-    "lit": "^2.8.0"
+    "lit": "^2.8.0",
+    "lit-html": "^3.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.4",
